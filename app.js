@@ -4,9 +4,13 @@ const app = express()
 const cheerio = require('cheerio');
 const url = "http://www.muabannhadat.vn/nha-dat-3490?p=";
 const request = require('request');
-var port = 3000
+var port = process.env.PORT||8080
 var pages = 20
 const stupid_space = '                                                                    '
+
+
+app.use(express.static('public'))
+
 
 
 app.get("/page/:id",function(req,re){

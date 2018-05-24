@@ -7,16 +7,16 @@ const request = require('request');
 var port = 3000
 var pages = 20
 const stupid_space = '                                                                    '
-var arr = [];
 
-app.get("/page20",function(req,re){
-    // pages = req.params.id;
-    for(var i = 0;i<pages;i++){
-        request(url + i, function (err, res, body) {
+
+app.get("/page/:id",function(req,re){
+   
+        request(url+req.params.id, function (err, res, body) {
             if (err) {
                 console.log("toang")
             }
             else {
+                var arr = [];
                 const $ = cheerio.load(body);
                 $(body).find('div.resultItem').each(function (i, elem) {
                     var name = $(elem).find('a.title-filter-link').text().trim();
@@ -32,7 +32,6 @@ app.get("/page20",function(req,re){
                 })
     
             }
-            if(arr.length>=pages*10)
             re.json(
                 arr
             )
@@ -40,7 +39,7 @@ app.get("/page20",function(req,re){
             
         })
         
-    }
+    
 })
     
 
